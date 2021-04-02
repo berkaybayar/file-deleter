@@ -14,7 +14,7 @@ namespace WindowsFormsAppText //ENTER YOUR PROJECT NAMESPACE HERE TO USE VARIABL
         public static string appdatadir = userdir + "\\AppData\\Roaming";//gets appdata directory C:\Users\%username%\AppData\\Roaming
         public static string systemdir = Environment.GetFolderPath(Environment.SpecialFolder.System);//gets system32 directory C:\Windows\System32
         public static string logdir = currentdir + "\\logs\\"; //log file directory
-        public static string path; //path of the file that will be deleted
+        
         public static ArrayList faillog = new ArrayList();//to log deletion failed items
         public static ArrayList succlog = new ArrayList(); //to log deletion successful items
         
@@ -29,16 +29,15 @@ namespace WindowsFormsAppText //ENTER YOUR PROJECT NAMESPACE HERE TO USE VARIABL
 
 
 
-    public static void deleteallfiles() //deletes all files in a folder or deletes the file 
+    public static void deleteallfiles(string path) //deletes all files in a folder or deletes the file 
     {
-        /*
-        Before this action send the folder or the file you wanna delete to path string variable if you dont do this action will fail
-        Example:
-        path = userdir + "\\Desktop\\%FILENAME%"
-        deleteallfiles();
+            /*
+            this function will delete every folder it can if string path is a folder path or it will delete file it self it is not a folder but a file
+            Example use:
+            deleteallfiles(@"C:\Users\Desktop\asd");
 
-        */
-        DirectoryInfo di = new DirectoryInfo(path);
+            */
+            DirectoryInfo di = new DirectoryInfo(path);
         //FileInfo fi = new FileInfo(path);
         try
         {
@@ -146,9 +145,9 @@ namespace WindowsFormsAppText //ENTER YOUR PROJECT NAMESPACE HERE TO USE VARIABL
         public static void dellogfiles()//deletes log files and disables logging
     {
         //to prevent logging to log this action first disables the logging and after deletion of log file it enables again
-        path = logdir;
+        
         disablelogging();
-        deleteallfiles();
+        deleteallfiles(logdir);
         enablelogging();
     }
 
